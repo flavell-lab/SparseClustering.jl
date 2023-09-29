@@ -1,2 +1,8 @@
+name = "SparseClustering"
+uuid = "1bb2fd30-ebb5-46c0-ad5b-ba211c5b9305"
+authors = ["Adam Atanas <adamatanas@gmail.com>"]
+version = "0.1.0"
+
 [deps]
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+
