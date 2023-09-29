@@ -1,6 +1,6 @@
 # SparseClustering.jl
 
-A Julia package specialized for hierarchical clustering on sparse data structures with spatial and temporal structure. The clustering algorithm in this package can keep track of this structure, and cluster only across the time dimension, while leaving unclustered different regions in space at the same time point. The clusters are represented with an efficient implementation of the Union-Find data structure to support fast clustering operations. Between that and its use of sorting the distance matrix, this package achieves computational complexity of $$O(n k \log(n k) + n t)$$, where $$n$$ is the number of ROIs, $$k$$ is the average number of nonzero elements per row in the distance matrix, and $$t$$ is the number of time points. This can be much faster than the typical $$O(n^2)$$ complexity of hierarchical clustering.
+A Julia package specialized for hierarchical clustering on sparse data structures with spatial and temporal structure. The clustering algorithm in this package can keep track of this structure, and cluster only across the time dimension, while leaving unclustered different regions in space at the same time point. The clusters are represented with an efficient implementation of the Union-Find data structure to support fast clustering operations. Between that and its use of sorting the distance matrix, this package achieves computational complexity of $O(n k \log(n k) + n t)$, where $n$ is the number of ROIs, $k$ is the average number of nonzero elements per row in the distance matrix, and $t$ is the number of time points. This can be much faster than the typical $O(n^2)$ complexity of hierarchical clustering.
 
 ## Features:
 
@@ -11,7 +11,7 @@ A Julia package specialized for hierarchical clustering on sparse data structure
 
 ```julia
 using Pkg
-Pkg.add("SparseClustering")
+Pkg.add("git@github.com:flavell-lab/SparseClustering.jl")
 ```
 
 ## Usage:
@@ -54,7 +54,7 @@ union!(uf, 1, 2)
 root_of_1 = find(uf, 1)
 ```
 
-The `UnionFind` structure provides two primary operations: `find`, which returns the representative element of a subset, and `union!`, which merges two subsets. It operates in amoritized time $$O(\alpha(n))$$, where $$\alpha$$ is the inverse Ackermann function, which is essentially constant for any practical value of $$n$$.
+The `UnionFind` structure provides two primary operations: `find`, which returns the representative element of a subset, and `union!`, which merges two subsets. It operates in amoritized time $O(\alpha(n))$, where $\alpha$ is the inverse Ackermann function, which is essentially constant for any practical value of $n$.
 
 ## License:
 
