@@ -58,4 +58,4 @@ The `UnionFind` structure provides two primary operations: `find`, which returns
 
 ## License:
 
-[MIT License](link-to-license)
+[MIT License](LICENSE)
