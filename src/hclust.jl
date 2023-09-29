@@ -24,10 +24,10 @@ function hclust_minimum_threshold_sparse(ds::AbstractMatrix{T}, inv_map, overlap
 
     n = size(d, 1)
     
-    sorted_pairs_list = sorted_pairs(d)
+    sorted_pairs_list = sort_distance_matrix(d)
     
     max_frame = maximum([maximum([y for y in keys(x)]) for x in values(inv_map)])
-    tree_frames = generate_tree_frames(inv_map, n, max_frame)
+    timepoint_map = generate_timepoint_map(inv_map, n, max_frame)
 
     curr_cluster_ids = UnionFind(n)
 
@@ -35,7 +35,7 @@ function hclust_minimum_threshold_sparse(ds::AbstractMatrix{T}, inv_map, overlap
         merged_nodes = zeros(Bool, n)
     end
 
-    new_tree_frame = similar(tree_frames, size(tree_frames, 2))
+    new_tree_frame = similar(timepoint_map, size(timepoint_map, 2))
 
     for pair in sorted_pairs_list
         i, j = pair
@@ -54,7 +54,7 @@ function hclust_minimum_threshold_sparse(ds::AbstractMatrix{T}, inv_map, overlap
         end
         
         # Check if merge is valid under ROI collision criterion
-        new_tree_frame .= tree_frames[clust_i,:] .+ tree_frames[clust_j,:]
+        new_tree_frame .= timepoint_map[clust_i,:] .+ timepoint_map[clust_j,:]
         overlaps = count(x -> x > 1, new_tree_frame)
         ratio = overlaps / count(>(0), new_tree_frame)
         
@@ -68,8 +68,8 @@ function hclust_minimum_threshold_sparse(ds::AbstractMatrix{T}, inv_map, overlap
         # Handle blocked merges for i, j, and last_tree
         # (similar to what you had in your original code)
 
-        tree_frames[clust_i, :] .= new_tree_frame    
-        tree_frames[clust_j, :] .= new_tree_frame
+        timepoint_map[clust_i, :] .= new_tree_frame    
+        timepoint_map[clust_j, :] .= new_tree_frame
 
         if pair_match
             merged_nodes[i] = true
